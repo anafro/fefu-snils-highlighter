@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "ДВФУ: Где я в списке?",
+    "version": "1.0",
+    "content_scripts": [
+        {
+            "matches": ["https://www.dvfu.ru/admission/spd/"],
+            "js": ["snils-highlighter.js"],
+            "css": ["snils-highlighter.css"]
+        }
+    ],
+
+    "action": {
+        "default_popup": "snils-highlighter.html"
+    },
+
+    "permissions": [
+        "storage"
+    ],
+
+    "icons": {
+        "16": "icon-16.png",
+        "48": "icon-48.png",
+        "128": "icon-128.png"
+    }
+}

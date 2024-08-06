@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap');
+
+* {
+    font-family: "Unbounded", sans-serif;
+    text-align: center;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --orange: #FABC55;
+}
+
+#snils-highlighter {
+    min-width: 24rem;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 1rem;
+    background: var(--orange);
+    padding-block: 1rem;
+    padding-inline: 2rem;
+}
+
+#header__icon {
+     background: yellowgreen !important;
+     color: darkgreen !important;
+     font-weight: 1000 !important;
+     animation: radiate 2000ms infinite ease-in-out !important;
+}
+
+@keyframes radiate {
+    0% {
+        outline: greenyellow 0 solid;
+    }
+
+    50% {
+        outline: transparent 1rem solid;
+    }
+
+    100% {
+        outline: transparent 6rem solid;
+    }
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+input[type="text"] {
+    border: none;
+    padding-block: 0.5rem;
+    outline: none;
+    font-size: 1rem;
+    letter-spacing: 0.4rem;
+    border-radius: 0.5rem;
+}
+
+input[type="text"].bad {
+    color: red;
+}
+
+input[type="text"]:not(.bad) {
+    animation: input-no-error 300ms ease-in;
+}
+
+@keyframes input-no-error {
+    0% {
+        color: mediumseagreen;
+    }
+
+    100% {
+        color: black
+    }
+}
+

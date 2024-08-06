@@ -1,0 +1,20 @@
+[data-highlighted] {
+    background: #FABC55 !important;
+    color: #281d0a !important;
+    font-weight: 1000 !important;
+    animation: row-radiate 2000ms infinite ease-in-out !important;
+}
+
+@keyframes row-radiate {
+    0% {
+        outline: #ffca6a 0 solid;
+    }
+
+    50% {
+        outline: transparent 1rem solid;
+    }
+
+    100% {
+        outline: transparent 6rem solid;
+    }
+}
