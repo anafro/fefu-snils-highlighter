@@ -5,13 +5,13 @@
     "content_scripts": [
         {
             "matches": ["https://www.dvfu.ru/admission/spd/"],
-            "js": ["snils-highlighter.js"],
-            "css": ["snils-highlighter.css"]
+            "js": ["highlighter/highlighter.js"],
+            "css": ["highlighter/highlighter.css"]
         }
     ],
 
     "action": {
-        "default_popup": "snils-highlighter.html"
+        "default_popup": "interface/index.html"
     },
 
     "permissions": [
@@ -19,8 +19,8 @@
     ],
 
     "icons": {
-        "16": "icon-16.png",
-        "48": "icon-48.png",
-        "128": "icon-128.png"
+        "16": "favicons/icon-16.png",
+        "48": "favicons/icon-48.png",
+        "128": "favicons/icon-128.png"
     }
 }
