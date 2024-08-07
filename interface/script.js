@@ -1,19 +1,30 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const input = document.getElementById("snils-input");
+const SNILS_REGEX = /^\d{3}-\d{3}-\d{3} \d{2}$/;
+const BAD_INPUT_VALUE_CLASS_NAME = "bad";
+const SNILS_STORAGE_KEY_NAME = "code";
 
-    chrome.storage.local.get(["code"]).then(({code}) => {
-        input.value = code ?? "";
+function hydrateInterface() {
+    const snilsInputEl = document.getElementById("snils-input");
+
+    chrome.storage.local.get([SNILS_STORAGE_KEY_NAME]).then((storage) => {
+        const snils = storage[SNILS_STORAGE_KEY_NAME];
+
+        if (snils === undefined) {
+            return;
+        }
+
+        snilsInputEl.value = snils;
     });
 
-    input.addEventListener("input", () => {
-        const code = input.value;
-        const regex = /^\d{3}-\d{3}-\d{3} \d{2}$/;
+    snilsInputEl.addEventListener("input", () => {
+        const snils = snilsInputEl.value;
 
-        if (regex.test(code)) {
-            input.classList.remove("bad");
-            chrome.storage.local.set({ code });
+        if (SNILS_REGEX.test(snils)) {
+            snilsInputEl.classList.remove(BAD_INPUT_VALUE_CLASS_NAME);
+            chrome.storage.local.set({ code: snils });
         } else {
-            input.classList.add("bad");
+            snilsInputEl.classList.add(BAD_INPUT_VALUE_CLASS_NAME);
         }
     })
-}, false);
+}
+
+document.addEventListener('DOMContentLoaded', hydrateInterface, false);
