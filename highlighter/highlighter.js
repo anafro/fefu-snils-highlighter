@@ -1,21 +1,36 @@
-const highlightCode = () => {
-    chrome.storage.local.get(["code"]).then(({code}) => {
-        const table = document.querySelector("#abitur > tbody");
+const ADMISSION_TABLE_BODY_SELECTOR = "#abitur > tbody";
+const SNILS_CELL_INDEX_IN_ADMISSION_ROWS = 1;
+const SNILS_ATTRIBUTE_NAME = "code";
+const HIGHLIGHTED_HTML_ATTRIBUTE_NAME = "data-highlighted";
+const HIGHLIGHTED_HTML_ATTRIBUTE_VALUE = "yes";
 
-        if (!table) {
+const highlightCode = () => {
+    chrome.storage.local.get([SNILS_ATTRIBUTE_NAME]).then((storage) => {
+        const snils = storage[SNILS_ATTRIBUTE_NAME];
+        const tableEl = document.querySelector(ADMISSION_TABLE_BODY_SELECTOR);
+
+        if (!tableEl) {
             return;
         }
 
-        const rows = [...table.children];
-        rows.filter(row => {
-            row.removeAttribute("data-highlighted");
-            const codeCellText = row.children[1].innerText;
-            return codeCellText.startsWith(code);
-        }).forEach(row => {
-            row.setAttribute("data-highlighted", "yes");
-        });
+        for (const rowEl of [...tableEl.children]) {
+            const snilsCellText = rowEl.children[SNILS_CELL_INDEX_IN_ADMISSION_ROWS].innerText;
+            toggleAttribute(rowEl, HIGHLIGHTED_HTML_ATTRIBUTE_NAME, HIGHLIGHTED_HTML_ATTRIBUTE_VALUE, snilsCellText.startsWith(snils));
+        }
     });
 
 }
 
-setInterval(highlightCode, 1000);
+(function main() {
+    setInterval(highlightCode, 1000);
+})();
+
+// --- Utilities ---
+
+function toggleAttribute(htmlElement, attributeName, attributeValue, booleanCondition) {
+    if (booleanCondition) {
+        htmlElement.setAttribute(attributeName, attributeValue);
+    } else {
+        htmlElement.removeAttribute(attributeName);
+    }
+}
